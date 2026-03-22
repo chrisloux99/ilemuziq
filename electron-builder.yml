@@ -43,7 +43,7 @@ mac:
     icon: assets/icons/icon.icns
     type: distribution
     hardenedRuntime: false
-    identity: "-"
+    identity: '-'
     gatekeeperAssess: false
     notarize: false
 
@@ -60,13 +60,13 @@ linux:
     artifactName: ${productName}-${os}-${arch}.${ext}
 
 toolsets:
-    appimage: "1.0.2"
+    appimage: '1.0.2'
 
 npmRebuild: false
 afterAllArtifactBuild: scripts/after-all-artifact-build.mjs
 publish:
     provider: github
-    owner: jeffvli
-    repo: feishin
+    owner: chrisloux99
+    repo: ilemuziq
     channel: latest
-    releaseType: draft
+    releaseType: release
