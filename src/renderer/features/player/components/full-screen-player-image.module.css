@@ -2,12 +2,22 @@
     position: absolute;
     max-width: 100%;
     height: 100%;
-    border-radius: 5px;
-    filter: drop-shadow(0 0 5px rgb(0 0 0 / 40%)) drop-shadow(0 0 5px rgb(0 0 0 / 40%));
+    border-radius: 8px;
+    filter: drop-shadow(0 0 15px rgba(249, 115, 22, 0.3))
+        drop-shadow(0 0 30px rgba(22, 163, 74, 0.2));
+    transition:
+        filter 0.3s ease,
+        transform 0.3s ease;
+
+    &:hover {
+        filter: drop-shadow(0 0 25px rgba(249, 115, 22, 0.5))
+            drop-shadow(0 0 40px rgba(22, 163, 74, 0.3));
+        transform: scale(1.02);
+    }
 }
 
 .censored.image {
-    filter: blur(30px);
+    filter: blur(30px) drop-shadow(0 0 15px rgba(249, 115, 22, 0.3));
 }
 
 .image-container {
@@ -19,6 +29,39 @@
     height: 65%;
     aspect-ratio: 1/1;
     margin-bottom: 1rem;
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: -10px;
+        border-radius: 16px;
+        background: radial-gradient(
+            ellipse at center,
+            rgba(249, 115, 22, 0.15) 0%,
+            rgba(22, 163, 74, 0.08) 40%,
+            transparent 70%
+        );
+        z-index: -1;
+        animation: warm-breath 4s ease-in-out infinite;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 8px;
+        border: 1px solid rgba(249, 115, 22, 0.2);
+        transition:
+            border-color 0.3s ease,
+            box-shadow 0.3s ease;
+    }
+
+    &:hover::after {
+        border-color: rgba(249, 115, 22, 0.4);
+        box-shadow:
+            0 0 30px rgba(249, 115, 22, 0.3),
+            inset 0 0 20px rgba(249, 115, 22, 0.05);
+    }
 }
 
 .metadata-container {
@@ -28,13 +71,25 @@
     text-align: center;
     cursor: default;
     border-radius: 5px;
+    background: linear-gradient(180deg, transparent 0%, rgba(5, 5, 5, 0.5) 100%);
 
     a {
         cursor: pointer;
+        transition: color 0.2s ease;
+
+        &:hover {
+            color: #f97316;
+        }
     }
 
     h1 {
         font-size: 3.5vh;
+        background: linear-gradient(135deg, #fafafa 0%, #f97316 50%, #fafafa 100%);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: shimmer-gold 3s linear infinite;
     }
 }
 

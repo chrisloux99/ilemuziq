@@ -119,12 +119,229 @@ button {
     }
 }
 
+/* ========== AFRICAN SUNSET GLOW ========== */
+@keyframes african-glow {
+    0%,
+    100% {
+        box-shadow:
+            0 0 20px rgba(249, 115, 22, 0.3),
+            0 0 40px rgba(249, 115, 22, 0.1);
+    }
+    50% {
+        box-shadow:
+            0 0 30px rgba(249, 115, 22, 0.5),
+            0 0 60px rgba(249, 115, 22, 0.2);
+    }
+}
+
+/* ========== PULSING RHYTHM ========== */
+@keyframes pulse-rhythm {
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 0.85;
+    }
+}
+
+/* ========== WARM BREATH ========== */
+@keyframes warm-breath {
+    0%,
+    100% {
+        opacity: 0.7;
+        filter: brightness(1);
+    }
+    50% {
+        opacity: 1;
+        filter: brightness(1.1);
+    }
+}
+
+/* ========== FLOATING DRIFT ========== */
+@keyframes float-drift {
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+/* ========== SPIN ORIENT ========== */
+@keyframes spin-slow {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ========== SHIMMER GOLD ========== */
+@keyframes shimmer-gold {
+    0% {
+        background-position: -200% center;
+    }
+    100% {
+        background-position: 200% center;
+    }
+}
+
+/* ========== BEAT DROP ========== */
+@keyframes beat-drop {
+    0%,
+    100% {
+        transform: scaleY(1);
+    }
+    10% {
+        transform: scaleY(1.15);
+    }
+    20% {
+        transform: scaleY(1);
+    }
+    30% {
+        transform: scaleY(1.1);
+    }
+    40% {
+        transform: scaleY(1);
+    }
+}
+
+/* ========== GRADIENT SHIFT ========== */
+@keyframes gradient-shift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* ========== GLOW PULSE ========== */
+@keyframes glow-pulse {
+    0%,
+    100% {
+        text-shadow: 0 0 10px rgba(249, 115, 22, 0.5);
+    }
+    50% {
+        text-shadow:
+            0 0 20px rgba(249, 115, 22, 0.8),
+            0 0 30px rgba(22, 163, 74, 0.4);
+    }
+}
+
+/* ========== SLIDE UP ========== */
+@keyframes slide-up {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========== SPARKLE ========== */
+@keyframes sparkle {
+    0%,
+    100% {
+        opacity: 0.3;
+        transform: scale(0.8);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+}
+
+/* ========== BORDER DANCE ========== */
+@keyframes border-dance {
+    0% {
+        border-color: rgba(249, 115, 22, 0.5);
+    }
+    33% {
+        border-color: rgba(22, 163, 74, 0.5);
+    }
+    66% {
+        border-color: rgba(249, 115, 22, 0.5);
+    }
+    100% {
+        border-color: rgba(249, 115, 22, 0.5);
+    }
+}
+
+/* African Sun Animation Classes */
+.african-glow {
+    animation: african-glow 3s ease-in-out infinite;
+}
+
+.pulse-rhythm {
+    animation: pulse-rhythm 2s ease-in-out infinite;
+}
+
+.warm-breath {
+    animation: warm-breath 4s ease-in-out infinite;
+}
+
+.float-drift {
+    animation: float-drift 3s ease-in-out infinite;
+}
+
+.spin-slow {
+    animation: spin-slow 20s linear infinite;
+}
+
+.shimmer-gold {
+    background: linear-gradient(
+        90deg,
+        rgba(249, 115, 22, 0.3) 0%,
+        rgba(249, 115, 22, 0.6) 50%,
+        rgba(249, 115, 22, 0.3) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer-gold 3s linear infinite;
+}
+
+.beat-drop {
+    animation: beat-drop 0.8s ease-in-out infinite;
+}
+
+.gradient-shift {
+    background: linear-gradient(
+        -45deg,
+        rgba(249, 115, 22, 0.1),
+        rgba(22, 163, 74, 0.1),
+        rgba(249, 115, 22, 0.1)
+    );
+    background-size: 400% 400%;
+    animation: gradient-shift 15s ease infinite;
+}
+
+.glow-pulse {
+    animation: glow-pulse 2s ease-in-out infinite;
+}
+
+.sparkle {
+    animation: sparkle 2s ease-in-out infinite;
+}
+
+.border-dance {
+    animation: border-dance 4s linear infinite;
+}
+
 @font-face {
     font-family: Symbola;
     src: url('../../../assets/fonts/Symbola.woff2');
     font-display: swap;
 }
-
 
 @font-face {
     font-family: Inter;

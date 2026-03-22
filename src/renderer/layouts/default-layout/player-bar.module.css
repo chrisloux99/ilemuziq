@@ -7,14 +7,22 @@
     }
 
     @mixin dark {
-        background: darken(var(--theme-colors-background), 10%);
+        background: linear-gradient(180deg, rgba(249, 115, 22, 0.08) 0%, rgba(5, 5, 5, 0.95) 100%);
+        box-shadow: 0 -4px 20px rgba(249, 115, 22, 0.15);
     }
 
-    transition: background 0.5s;
+    transition:
+        background 0.5s,
+        box-shadow 0.5s;
 }
 
 .open-drawer {
     &:hover {
-        background: darken(var(--theme-colors-background), 20%);
+        background: linear-gradient(
+            180deg,
+            rgba(249, 115, 22, 0.12) 0%,
+            rgba(22, 163, 74, 0.05) 100%
+        );
+        box-shadow: 0 -4px 25px rgba(249, 115, 22, 0.25);
     }
 }
