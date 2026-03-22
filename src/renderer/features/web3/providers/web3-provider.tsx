@@ -2,14 +2,18 @@ import { OnchainKitProvider } from '@coinbase/onchainkit';
 import { ReactNode } from 'react';
 import { base, baseSepolia } from 'viem/chains';
 import { createConfig, http, WagmiProvider } from 'wagmi';
-import { coinbaseWallet } from 'wagmi/connectors';
+import { coinbaseWallet, injected } from 'wagmi/connectors';
 
 export const wagmiConfig = createConfig({
     chains: [base, baseSepolia],
     connectors: [
+        injected({
+            shimDisconnect: true,
+        }),
         coinbaseWallet({
             appName: 'iLe Muziq',
             preference: 'all',
+            enableMobileWalletLink: true,
         }),
     ],
     transports: {

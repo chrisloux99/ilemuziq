@@ -256,7 +256,12 @@ function createAlphaUpdaterInstance(): AppImageUpdater | MacUpdater | NsisUpdate
     return new NsisUpdater(ALPHA_UPDATER_CONFIG);
 }
 
-protocol.registerSchemesAsPrivileged([{ privileges: { bypassCSP: true }, scheme: 'feishin' }]);
+protocol.registerSchemesAsPrivileged([
+    { privileges: { bypassCSP: true }, scheme: 'feishin' },
+    { privileges: { bypassCSP: true }, scheme: 'cbwallet' },
+    { privileges: { bypassCSP: true }, scheme: 'coinbase' },
+    { privileges: { bypassCSP: true }, scheme: 'wc' },
+]);
 
 process.on('uncaughtException', (error: any) => {
     console.error('Error in main process', error);
@@ -709,9 +714,46 @@ async function createWindow(first = true): Promise<void> {
         Menu.setApplicationMenu(null);
     }
 
-    // Open URLs in the user's browser
+    // Open URLs in the user's browser (except for wallet OAuth flows)
     mainWindow.webContents.setWindowOpenHandler((edata) => {
-        shell.openExternal(edata.url);
+        const url = edata.url;
+
+        // Allow Coinbase Wallet OAuth popups (they need to communicate with the app)
+        if (
+            url.includes('coinbase') ||
+            url.includes('wallet.coinbase') ||
+            url.includes('auth.coinbase') ||
+            url.includes('cbwallet') ||
+            url.includes('oauth')
+        ) {
+            // Open in a new window for OAuth flows
+            const oauthWindow = new BrowserWindow({
+                width: 480,
+                height: 720,
+                modal: false,
+                webPreferences: {
+                    nodeIntegration: false,
+                    contextIsolation: true,
+                },
+            });
+            oauthWindow.loadURL(url);
+            oauthWindow.focus();
+            return { action: 'deny' };
+        }
+
+        // Handle deep links for wallets
+        if (
+            url.startsWith('cbwallet://') ||
+            url.startsWith('coinbase://') ||
+            url.startsWith('wc://') ||
+            url.startsWith('metamask://')
+        ) {
+            shell.openExternal(url);
+            return { action: 'deny' };
+        }
+
+        // Open all other URLs in external browser
+        shell.openExternal(url);
         return { action: 'deny' };
     });
 
@@ -722,9 +764,18 @@ async function createWindow(first = true): Promise<void> {
     const theme = store.get('theme') as TitleTheme | undefined;
     nativeTheme.themeSource = theme || 'dark';
 
-    mainWindow.webContents.setWindowOpenHandler((details) => {
-        shell.openExternal(details.url);
-        return { action: 'deny' };
+    // Handle navigation requests
+    mainWindow.webContents.on('will-navigate', (event, url) => {
+        // Allow internal navigation but open external wallet links in browser
+        if (
+            url.startsWith('https://') &&
+            (url.includes('wallet.coinbase') ||
+                url.includes('auth.coinbase') ||
+                url.includes('oauth'))
+        ) {
+            event.preventDefault();
+            shell.openExternal(url);
+        }
     });
 
     // HMR for renderer base on electron-vite cli.
